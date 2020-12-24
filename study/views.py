@@ -77,7 +77,8 @@ def edit(request, post_id):
         object:
     """
     # 編集するためのデータをDBから持ってくる
-    post = models.Post.objects.get(pk=post_id)
+    # authorとログイン中のユーザーのみ取得する。
+    post = get_object_or_404(models.Post, pk=post_id, author=request.user)
     if request.method == 'POST':
         form = forms.PostForm(request.POST)
         # validation check
@@ -91,3 +92,10 @@ def edit(request, post_id):
     else:
         form = forms.PostForm(instance=post)
         return render(request, 'edit.html', {'form': form})
+
+
+@login_required
+def delete(request, post_id):
+    post = get_object_or_404(models.Post, pk=post_id, author=request.user)
+    post.delete()
+    return redirect('study:list')

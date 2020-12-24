@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.views.generic import CreateView
 from django.views.generic.base import View
-from .forms import LoginForm, UserCreateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
+
+from .forms import LoginForm, UserCreateForm
 
 
 class CreateAccount(CreateView, LoginRequiredMixin):
@@ -30,7 +31,7 @@ class LoginAccount(View, LoginRequiredMixin):
     def post(self, request, *args, **kwargs):
         form = LoginForm(data=request.POST)
         if form.is_valid():
-            # TODO: cleaned_dataについてしらべる
+            # TODO: cleaned_dataについてしらべる。
             username = form.cleaned_data.get('username')
             user = User.objects.get(username=username)
             login(request, user)
