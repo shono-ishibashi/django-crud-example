@@ -8,7 +8,12 @@ from . import forms
 
 
 def list(request):
-    posts = models.Post.objects.all().order_by('-create_at')
+    """一覧画面
+
+    Returns:
+        object:
+    """
+    posts = models.Post.objects.order_by('-create_at')
     data = {'posts': posts}
     return render(request, 'list.html', data)
 
@@ -26,14 +31,15 @@ def new(request):
         GET:
             return (render): 新規投稿画面へ遷移
 
-
     """
     if request.method == 'POST':
         form = forms.PostForm(request.POST)
         if form.is_valid():
+            # formからmodelへデータを渡す
             post = models.Post()
             post.title = form.data['title']
             post.content = form.data['content']
+            # データの保存
             post.save()
             return redirect(reverse_lazy('list'))
         else:
@@ -44,6 +50,11 @@ def new(request):
 
 
 def detail(request, post_id):
+    """ 詳細画面への遷移
+
+    Returns:
+        object:
+    """
     if request.method == "GET":
         # データが存在しない場合404エラーを追加
         # post = models.Post.objects.get(pk=post_id)
@@ -60,10 +71,11 @@ def edit(request, post_id):
     Returns:
         object:
     """
-    print('post_id:', post_id)
+    # 編集するためのデータをDBから持ってくる
     post = models.Post.objects.get(pk=post_id)
     if request.method == 'POST':
         form = forms.PostForm(request.POST)
+        # validation check
         if form.is_valid():
             post.title = form.data['title']
             post.content = form.data['content']

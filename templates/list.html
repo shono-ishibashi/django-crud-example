@@ -13,7 +13,7 @@
         <div class="card-body">
             <h5 class="card_title">{{ post.content }}</h5>
             <p>{{ post.update_at | date:"Y/m/d f" }}</p>
-            <a href="{% url 'detail' post.id %}" class="btn btn-primary">詳しく見る</a>
+            <a href="{% url 'study:detail' post.id %}" class="btn btn-primary">詳しく見る</a>
         </div>
     </div>
     {% endfor %}
