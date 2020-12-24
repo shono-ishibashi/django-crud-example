@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+    <div>
+        <form action="" method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit">POST!</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
