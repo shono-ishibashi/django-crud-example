@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from . import models
 from . import forms
@@ -44,12 +44,22 @@ def new(request):
 
 
 def detail(request, post_id):
-    post = models.Post.objects.get(pk=post_id)
-    data = {'post': post}
-    return render(request, 'detail.html', data)
+    if request.method == "GET":
+        # データが存在しない場合404エラーを追加
+        # post = models.Post.objects.get(pk=post_id)
+        post = get_object_or_404(models.Post, pk=post_id)
+        data = {'post': post}
+        return render(request, 'detail.html', data)
+    else:
+        return render(request, 'errors/405.html', status=405)
 
 
 def edit(request, post_id):
+    """編集画面へ遷移
+
+    Returns:
+        object:
+    """
     print('post_id:', post_id)
     post = models.Post.objects.get(pk=post_id)
     if request.method == 'POST':
@@ -64,4 +74,3 @@ def edit(request, post_id):
     else:
         form = forms.PostForm(instance=post)
         return render(request, 'edit.html', {'form': form})
-
