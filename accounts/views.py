@@ -5,6 +5,7 @@ from django.views.generic import CreateView
 from django.views.generic.base import View
 from .forms import LoginForm, UserCreateForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
 
 
 class CreateAccount(CreateView, LoginRequiredMixin):
@@ -34,9 +35,12 @@ class LoginAccount(View, LoginRequiredMixin):
             user = User.objects.get(username=username)
             login(request, user)
             return redirect('study:list')
-
         return render(request, 'login.html', {'form': form})
 
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
         return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)

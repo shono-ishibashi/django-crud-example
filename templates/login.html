@@ -1,13 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
-  </head>
-  <body>
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+<div>
     <form action="" method="POST">
       {{ form.as_p }} {% csrf_token %}
       <button type="submit">login</button>
     </form>
-  </body>
-</html>
+</div>
+{% endblock content %}

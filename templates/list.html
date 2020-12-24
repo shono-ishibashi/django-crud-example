@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block header %}
 {% endblock header %}
-
 {% block content %}
-<h1>list</h1>
 <div class="container">
-    {% for post in posts %}
-    <div class="card">
-        <h5 class="card-header">{{ post.title }}</h5>
-        <div class="card-body">
-            <h5 class="card_title">{{ post.content }}</h5>
-            <p>{{ post.update_at | date:"Y/m/d f" }}</p>
-            <a href="{% url 'study:detail' post.id %}" class="btn btn-primary">詳しく見る</a>
-        </div>
+  {% for post in posts %}
+  <div class="card">
+    <h5 class="card-header">{{ post.title }}</h5>
+    <div class="card-body">
+      <h5 class="card_title">{{ post.content }}</h5>
+      <p>{{ post.update_at | date:"Y/m/d f" }}</p>
+      <p>{{ post.user }}</p>
+      <a href="{% url 'study:detail' post.id %}" class="btn btn-primary"
+        >詳しく見る</a
+      >
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
 </div>
 {% endblock content %}
