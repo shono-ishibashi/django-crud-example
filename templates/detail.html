@@ -9,8 +9,8 @@
     <h5 class="card-header">{{ post.title }}</h5>
     <div class="card-body">
         <p class="card-title">{{ post.content }}</p>
-        <a href="{% url 'edit' post.id %}" class="btn btn-primary">編集</a>
-        <a href="{% url 'list' %}" class="brn btn-primary">戻る</a>
+        <a href="{% url 'study:edit' post.id %}" class="btn btn-primary">編集</a>
+        <a href="{% url 'study:list' %}" class="brn btn-primary">戻る</a>
     </div>
 </div>
 {% endblock content %}
